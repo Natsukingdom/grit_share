@@ -1,0 +1,2 @@
+class PomoController < ApplicationController
+end
