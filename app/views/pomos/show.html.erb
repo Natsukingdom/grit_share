@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Start time:</strong>
+  <%= @pomo.start_time %>
+</p>
+
+<p>
+  <strong>Stop time:</strong>
+  <%= @pomo.stop_time %>
+</p>
+
+<p>
+  <strong>End time:</strong>
+  <%= @pomo.end_time %>
+</p>
+
+<p>
+  <strong>Comment:</strong>
+  <%= @pomo.comment %>
+</p>
+
+<%= link_to 'Edit', edit_pomo_path(@pomo) %> |
+<%= link_to 'Back', pomos_path %>

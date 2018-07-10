@@ -1,0 +1,37 @@
+<%= form_with(model: pomo, local: true) do |form| %>
+  <% if pomo.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(pomo.errors.count, "error") %> prohibited this pomo from being saved:</h2>
+
+      <ul>
+      <% pomo.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :start_time %>
+    <%= form.datetime_select :start_time, id: :pomo_start_time %>
+  </div>
+
+  <div class="field">
+    <%= form.label :stop_time %>
+    <%= form.datetime_select :stop_time, id: :pomo_stop_time %>
+  </div>
+
+  <div class="field">
+    <%= form.label :end_time %>
+    <%= form.datetime_select :end_time, id: :pomo_end_time %>
+  </div>
+
+  <div class="field">
+    <%= form.label :comment %>
+    <%= form.text_field :comment, id: :pomo_comment %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
