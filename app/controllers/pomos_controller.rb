@@ -1,5 +1,5 @@
 class PomosController < ApplicationController
-  before_action :set_pomo, only: [:show, :edit, :update, :destroy]
+  before_action :set_pomo, only: %i[show edit update destroy]
 
   # GET /pomos
   # GET /pomos.json
@@ -9,8 +9,7 @@ class PomosController < ApplicationController
 
   # GET /pomos/1
   # GET /pomos/1.json
-  def show
-  end
+  def show; end
 
   # GET /pomos/new
   def new
@@ -18,8 +17,7 @@ class PomosController < ApplicationController
   end
 
   # GET /pomos/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /pomos
   # POST /pomos.json
@@ -62,13 +60,14 @@ class PomosController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_pomo
-      @pomo = Pomo.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def pomo_params
-      params.require(:pomo).permit(:start_time, :stop_time, :end_time, :comment)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_pomo
+    @pomo = Pomo.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def pomo_params
+    params.require(:pomo).permit(:start_time, :stop_time, :end_time, :comment)
+  end
 end
