@@ -1,0 +1,2 @@
+class Pomo < ApplicationRecord
+end
