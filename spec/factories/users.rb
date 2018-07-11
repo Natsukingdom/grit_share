@@ -1,8 +1,9 @@
 FactoryBot.define do
   factory :user do
-    nickname "MyString"
-    email "MyString"
-    password_digest "MyString"
+    nickname "JohnTitor"
+    email "hogehoge@example.com"
+    password 'hogepiyoFuga@1984'
+    password_confirmation 'hogepiyoFuga@1984'
     birthday "2018-07-11"
   end
 end
