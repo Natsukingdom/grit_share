@@ -5,18 +5,21 @@
 #   gem 'sqlite3'
 #
 default: &default
+  pool: 5
+  username: root
+  password:
+
+mysql: &mysql
   adapter: mysql2
   encoding: utf8mb4
   charset: utf8mb4
   collation: utf8mb4_bin
-  pool: 5
-  username: root
-  password:
-  host: localhost
   socket: /tmp/mysql.sock
+  host: localhost
 
 test:
   <<: *default
+  <<: *mysql
   database: test
   username: <%= ENV['DB_USERNAME'] || 'root' %>
   password: <%= ENV['DB_PASSWORD'] || '' %>
@@ -24,9 +27,17 @@ test:
 
 development:
   <<: *default
+  <<: *mysql
+  adapter: mysql2
+  encoding: utf8mb4
+  collation: utf8mb4_bin
+  charset: utf8mb4
   database: development
 
 
 production:
   <<: *default
+  adapter: postgresql
+  url: <%= ENV['DATABASE_URL'] %>
   database: production
+  charset: unicode
