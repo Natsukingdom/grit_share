@@ -12,7 +12,10 @@
 
 ActiveRecord::Schema.define(version: 20180711230003) do
 
-  create_table "pomos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "pomos", force: :cascade do |t|
     t.datetime "start_time"
     t.datetime "stop_time"
     t.datetime "end_time"
@@ -21,7 +24,7 @@ ActiveRecord::Schema.define(version: 20180711230003) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|
+  create_table "users", force: :cascade do |t|
     t.string "nickname"
     t.string "email", limit: 191
     t.date "birthday"

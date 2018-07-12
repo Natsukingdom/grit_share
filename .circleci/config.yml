@@ -9,21 +9,15 @@ jobs:
        - image: circleci/ruby:2.4.1-node-browsers 
          environment:
            RAILS_ENV: test
-           DB_HOST: 127.0.0.1
-           DB_USERNAME: 'root'
-           DB_PASSWORD: ''
-       - image: circleci/mysql:5.6
+       - image: circleci/postgres:10.3
          environment:
-           MYSQL_ALLOW_EMPTY_PASSWORD: yes
+           POSTGRES_USER: ubuntu
+           POSTGRES_DATABASE: test
 
     working_directory: ~/repo
 
     steps:
       - checkout
-      - run:
-          name: 'wait for db'
-          command: dockerize -wait tcp://localhost:3306 -timeout 1m
-
       # Download and cache dependencies
       - restore_cache:
           keys:
@@ -40,11 +34,19 @@ jobs:
           paths:
             - ./vendor/bundle
           key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+
+      - run:
+          name: Wait for DB
+          command: dockerize -wait tcp://127.0.0.1:5432 -timeout 120s
         
       # Database setup
-      - run: bundle exec rails db:create
-      - run: bundle exec rails db:migrate
-      - run: bundle exec rails db:schema:load
+      - run:
+          name: Database setup
+          command: |
+            bundle exec rails db:create db:schema:load --trace
+            bundle exec rails db:migrate
+          environment:
+            DATABASE_URL: postgres://ubuntu@localhost:5432/test
 
       # run tests!
       - run:
@@ -58,6 +60,9 @@ jobs:
                             --out /tmp/test-results/rspec.xml \
                             --format progress \
                             $TEST_FILES
+          environment:
+            DATABASE_URL: postgres://ubuntu@localhost:5432/test
+
 
       # collect reports
       - store_test_results:
