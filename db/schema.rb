@@ -23,7 +23,6 @@ ActiveRecord::Schema.define(version: 20180715141315) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
-    t.integer "passage_time"
     t.integer "passage_seconds"
     t.index ["user_id"], name: "index_pomos_on_user_id"
   end
