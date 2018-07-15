@@ -7,4 +7,5 @@ class User < ApplicationRecord
                     uniqueness: true
   validates :password, length: { minimum: 6 }, presence: true
   has_secure_password
+  has_many :pomos
 end

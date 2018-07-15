@@ -4,8 +4,9 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   describe 'register user' do
     before(:each) do
-      @user = FactoryBot.create(:user)
+      @user = FactoryBot.build(:user)
     end
+
     context 'with invalid attributes' do
       it 'is invalid without nickname' do
         @user.nickname = ''
@@ -41,11 +42,12 @@ RSpec.describe User, type: :model do
       end
 
       it 'is invalid with a duplicate email' do
-        user = FactoryBot.build(:user)
-        expect(user).not_to be_valid
+        FactoryBot.create(:user)
+        expect{ FactoryBot.create(:user) }.to raise_error(ActiveRecord::RecordInvalid)
       end
 
       # @todo: 良い方法が見つかったら実装する
+      # これはフォームのテスト？
       # it 'is invalid with blank password'
     end
 
