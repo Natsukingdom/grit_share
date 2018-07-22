@@ -20,7 +20,7 @@ RSpec.describe UsersController, type: :routing do
     end
 
     it "routes to #create" do
-      expect(:post => "/users").to route_to("users#create")
+      expect(:post => "/users").to route_to("devise/registrations#create")
     end
 
     it "routes to #update via PUT" do
@@ -37,3 +37,4 @@ RSpec.describe UsersController, type: :routing do
 
   end
 end
+

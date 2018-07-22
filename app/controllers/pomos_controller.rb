@@ -22,6 +22,7 @@ class PomosController < ApplicationController
   # POST /pomos
   # POST /pomos.json
   def create
+    binding.pry
     @pomo = Pomo.new(pomo_params)
 
     respond_to do |format|
@@ -68,6 +69,6 @@ class PomosController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def pomo_params
-    params.require(:pomo).permit(:start_time, :stop_time, :end_time, :comment)
+    params.require(:pomo).permit(:user_id, :start_time, :stop_time, :end_time, :comment, :passage_seconds)
   end
 end
