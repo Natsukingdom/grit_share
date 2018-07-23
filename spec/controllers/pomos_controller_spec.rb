@@ -58,54 +58,55 @@ RSpec.describe PomosController, type: :controller do
       end
     end
 
-    # @todo: あしたはここから調整
     context 'with invalid params' do
       it "returns a success response (i.e. to display the 'new' template)" do
-        post :create, params: { pomo: invalid_attributes }, session: valid_session
-        expect(response).to be_success
+        pomo.user_id = 2
+        expect do
+          post :create,
+               params: { pomo: pomo.attributes },
+               session: valid_session
+        end.to change(Pomo, :count).by(0)
+        expect(response).to have_http_status(200)
       end
     end
   end
 
   describe 'PUT #update' do
     context 'with valid params' do
-      let(:new_attributes) do
-        skip('Add a hash of attributes valid for your model')
-      end
-
       it 'updates the requested pomo' do
-        pomo = Pomo.create! valid_attributes
-        put :update, params: { id: pomo.to_param, pomo: new_attributes }, session: valid_session
-        pomo.reload
-        skip('Add assertions for updated state')
+        pomo.save
+        put :update,
+            params: { id: pomo.to_param, pomo: { comment: 'new attributes' } },
+            session: valid_session
+        expect(Pomo.find_by_id(pomo.to_param).comment).to eq('new attributes')
       end
 
       it 'redirects to the pomo' do
-        pomo = Pomo.create! valid_attributes
-        put :update, params: { id: pomo.to_param, pomo: valid_attributes }, session: valid_session
+        pomo.save
+        put :update, params: { id: pomo.to_param, pomo: { comment: 'checking redirects' } }, session: valid_session
         expect(response).to redirect_to(pomo)
       end
     end
 
     context 'with invalid params' do
       it "returns a success response (i.e. to display the 'edit' template)" do
-        pomo = Pomo.create! valid_attributes
-        put :update, params: { id: pomo.to_param, pomo: invalid_attributes }, session: valid_session
-        expect(response).to be_success
+        pomo.save
+        put :update, params: { id: pomo.to_param, pomo: { passage_seconds: '-10' } }, session: valid_session
+        expect(response).to have_http_status(200)
       end
     end
   end
 
   describe 'DELETE #destroy' do
     it 'destroys the requested pomo' do
-      pomo = Pomo.create! valid_attributes
+      pomo.save
       expect do
         delete :destroy, params: { id: pomo.to_param }, session: valid_session
       end.to change(Pomo, :count).by(-1)
     end
 
     it 'redirects to the pomos list' do
-      pomo = Pomo.create! valid_attributes
+      pomo.save
       delete :destroy, params: { id: pomo.to_param }, session: valid_session
       expect(response).to redirect_to(pomos_url)
     end

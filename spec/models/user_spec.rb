@@ -43,11 +43,10 @@ RSpec.describe User, type: :model do
 
       it 'is invalid with a duplicate email' do
         FactoryBot.create(:user)
-        expect{ FactoryBot.create(:user) }.to raise_error(ActiveRecord::RecordInvalid)
+        expect { FactoryBot.create(:user) }.to raise_error(ActiveRecord::RecordInvalid)
       end
 
       # @todo: 良い方法が見つかったら実装する
-      # これはフォームのテスト？
       # it 'is invalid with blank password'
     end
 
