@@ -22,7 +22,6 @@ class PomosController < ApplicationController
   # POST /pomos
   # POST /pomos.json
   def create
-    binding.pry
     @pomo = Pomo.new(pomo_params)
 
     respond_to do |format|
