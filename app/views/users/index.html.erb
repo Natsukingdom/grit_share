@@ -17,8 +17,7 @@
     <% @users.each do |user| %>
       <tr>
         <td><%= user.nickname %></td>
-        <td><%= user.mail %></td>
-        <td><%= user.password_digest %></td>
+        <td><%= user.email %></td>
         <td><%= user.birthday %></td>
         <td><%= link_to 'Show', user %></td>
         <td><%= link_to 'Edit', edit_user_path(user) %></td>

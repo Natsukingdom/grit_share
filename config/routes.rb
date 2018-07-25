@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  root 'pomos#new'
+  devise_for :users
+  root to: 'users#index'
   resources :users
   resources :pomos
 end

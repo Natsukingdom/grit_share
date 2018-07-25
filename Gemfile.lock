@@ -60,6 +60,7 @@ GEM
       xpath (>= 2.0, < 4.0)
     childprocess (0.9.0)
       ffi (~> 1.0, >= 1.0.11)
+    coderay (1.1.2)
     coffee-rails (4.2.2)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0)
@@ -70,6 +71,12 @@ GEM
     concurrent-ruby (1.0.5)
     crass (1.0.4)
     database_cleaner (1.7.0)
+    devise (4.4.3)
+      bcrypt (~> 3.0)
+      orm_adapter (~> 0.1)
+      railties (>= 4.1.0, < 6.0)
+      responders
+      warden (~> 1.2.3)
     diff-lcs (1.3)
     erubi (1.7.1)
     execjs (2.7.0)
@@ -108,6 +115,7 @@ GEM
     nio4r (2.3.1)
     nokogiri (1.8.3)
       mini_portile2 (~> 2.3.0)
+    orm_adapter (0.5.0)
     parallel (1.12.1)
     parser (2.5.1.0)
       ast (~> 2.4.0)
@@ -115,6 +123,12 @@ GEM
     postgresql (1.0.0)
       pg
     powerpack (0.1.2)
+    pry (0.11.3)
+      coderay (~> 1.1.0)
+      method_source (~> 0.9.0)
+    pry-byebug (3.6.0)
+      byebug (~> 10.0)
+      pry (~> 0.10)
     public_suffix (3.0.2)
     puma (3.11.4)
     rack (2.0.5)
@@ -148,6 +162,9 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
+    responders (2.4.0)
+      actionpack (>= 4.2.0, < 5.3)
+      railties (>= 4.2.0, < 5.3)
     rspec-core (3.7.1)
       rspec-support (~> 3.7.0)
     rspec-expectations (3.7.0)
@@ -214,6 +231,8 @@ GEM
     uglifier (4.1.14)
       execjs (>= 0.3.0, < 3)
     unicode-display_width (1.4.0)
+    warden (1.2.7)
+      rack (>= 1.0)
     web-console (3.6.2)
       actionview (>= 5.0)
       activemodel (>= 5.0)
@@ -235,6 +254,7 @@ DEPENDENCIES
   capybara (~> 2.13)
   coffee-rails (~> 4.2)
   database_cleaner
+  devise
   factory_bot_rails
   faker
   jbuilder (~> 2.5)
@@ -242,6 +262,7 @@ DEPENDENCIES
   listen (>= 3.0.5, < 3.2)
   mysql2
   postgresql
+  pry-byebug
   puma (~> 3.7)
   rails (~> 5.1.6)
   rspec-rails (~> 3.7)
