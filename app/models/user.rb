@@ -13,4 +13,5 @@ class User < ApplicationRecord
                     uniqueness: true
   validates :password, length: { minimum: 6 }, presence: true
   has_many :pomos
+  enum authority: { general: 0, admin: 1 }
 end
