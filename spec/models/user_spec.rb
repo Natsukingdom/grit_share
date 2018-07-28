@@ -4,7 +4,7 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   describe 'register user' do
     before(:each) do
-      @user = FactoryBot.build(:user)
+      @user = build(:user)
     end
 
     context 'with invalid attributes' do
@@ -42,8 +42,8 @@ RSpec.describe User, type: :model do
       end
 
       it 'is invalid with a duplicate email' do
-        FactoryBot.create(:user)
-        expect { FactoryBot.create(:user) }.to raise_error(ActiveRecord::RecordInvalid)
+        create(:user)
+        expect { create(:user) }.to raise_error(ActiveRecord::RecordInvalid)
       end
 
       # @todo: 良い方法が見つかったら実装する

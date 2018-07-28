@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe PomosController, type: :controller do
   let(:pomo) do
-    FactoryBot.build(:pomo)
+    build(:pomo)
   end
 
   before(:each) { login_user }
@@ -45,14 +45,14 @@ RSpec.describe PomosController, type: :controller do
       it 'creates a new Pomo' do
         expect do
           post :create,
-               params: { pomo: FactoryBot.attributes_for(:pomo) },
+               params: { pomo: attributes_for(:pomo) },
                session: valid_session
         end.to change(Pomo, :count).by(1)
       end
 
       it 'redirects to the created pomo' do
         post :create,
-             params: { pomo: FactoryBot.attributes_for(:pomo) },
+             params: { pomo: attributes_for(:pomo) },
              session: valid_session
         expect(response).to redirect_to(Pomo.last)
       end
