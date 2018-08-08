@@ -131,7 +131,7 @@ RSpec.describe UsersController, type: :request do
         expect do
           post '/users', params: { user: attributes_for(:user, :another) }
         end.to change(User, :count).by(1)
-        expect(response).to redirect_to('/users/sign_in')
+        expect(response).to redirect_to user_url(User.last)
       end
     end
 
@@ -146,64 +146,72 @@ RSpec.describe UsersController, type: :request do
 
     context 'by admin' do
       let(:admin) { build(:user, :admin) }
-      it 'returns 200' do
+      it 'redirects to user page' do
         expect do
           sign_in admin
           post '/users', params: { user: attributes_for(:user, :another) }
         end.to change(User, :count).by(1)
-        expect(response).to redirect_to("/users/#{build(:user, :another).id}")
+        expect(response).to redirect_to user_url(User.last)
       end
     end
 
     context 'general user' do
-
+      let(:user) { build(:user) }
+      it 'returns 403 forbidden' do
+        expect do
+          sign_in user
+          post '/users', params: { user: attributes_for(:user, :another) }
+        end.to change(User, :count).by(0)
+        expect(response.status).to eq 403
+      end
     end
     context 'user not signed_in' do
-      it 'returns 200'
+      it 'returns 200' do
+        expect do
+          post '/users', params: { user: attributes_for(:user, :another) }
+        end.to change(User, :count).by(1)
+        expect(response).to redirect_to(user_url(User.last))
+      end
     end
   end
 
-  describe 'PUT #update' do
-    context 'with valid params' do
-      let(:new_attributes) do
-        skip('Add a hash of attributes valid for your model')
+  describe 'PATCH #update' do
+    context 'by admin' do
+      let(:user) { build(:user, :admin) }
+      context 'with invalid params' do
+        it 'does not update user' do
+          sign_in user
+        end
       end
 
-      it 'updates the requested user' do
-        user = User.create! valid_attributes
-        put :update, params: { id: user.to_param, user: new_attributes }, session: valid_session
-        user.reload
-        skip('Add assertions for updated state')
-      end
-
-      it 'redirects to the user' do
-        user = User.create! valid_attributes
-        put :update, params: { id: user.to_param, user: valid_attributes }, session: valid_session
-        expect(response).to redirect_to(user)
+      context 'with valid params' do
+        it 'updates user'
+        it 'redirects user page'
       end
     end
 
-    context 'with invalid params' do
-      it "returns a success response (i.e. to display the 'edit' template)" do
-        user = User.create! valid_attributes
-        put :update, params: { id: user.to_param, user: invalid_attributes }, session: valid_session
-        expect(response).to be_success
+    context 'general user' do
+      context 'to self account' do
+        context 'with valid params' do
+          it 'updates userself'
+          it 'redirects userself page'
+        end
+
+        context 'with invalid params' do
+          it 'does not update user'
+        end
       end
+    end
+
+    context 'not signed in user' do
+      it 'does not updates any user'
+      it 'redirects sign_in page'
     end
   end
 
   describe 'DELETE #destroy' do
-    it 'destroys the requested user' do
-      user = User.create! valid_attributes
-      expect do
-        delete :destroy, params: { id: user.to_param }, session: valid_session
-      end.to change(User, :count).by(-1)
-    end
+    it 'destroys the requested user'
 
-    it 'redirects to the users list' do
-      user = User.create! valid_attributes
-      delete :destroy, params: { id: user.to_param }, session: valid_session
-      expect(response).to redirect_to(users_url)
-    end
+    it 'redirects to the users list'
   end
 end

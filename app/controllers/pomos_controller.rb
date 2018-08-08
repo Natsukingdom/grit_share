@@ -39,7 +39,7 @@ class PomosController < ApplicationController
 
     respond_to do |format|
       if @pomo.save
-        format.html { redirect_to @pomo, notice: 'Pomo was successfully created.' }
+        format.html { redirect_to user_pomo_url(current_user, @pomo), notice: 'Pomo was successfully created.' }
         format.json { render :show, status: :created, location: @pomo }
       else
         format.html { render :new }
@@ -53,7 +53,7 @@ class PomosController < ApplicationController
   def update
     respond_to do |format|
       if @pomo.update(pomo_params)
-        format.html { redirect_to @pomo, notice: 'Pomo was successfully updated.' }
+        format.html { redirect_to user_pomo_url(current_user, @pomo), notice: 'Pomo was successfully updated.' }
         format.json { render :show, status: :ok, location: @pomo }
       else
         format.html { render :edit }
@@ -71,7 +71,7 @@ class PomosController < ApplicationController
     end
     @pomo.destroy
     respond_to do |format|
-      format.html { redirect_to pomos_url, notice: 'Pomo was successfully destroyed.' }
+      format.html { redirect_to user_pomos_url(current_user), notice: 'Pomo was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

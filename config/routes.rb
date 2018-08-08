@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
-  devise_for :users, :controllers => {
-    registrations: 'users/registrations'
-  }
+  devise_for :users,
+             controllers: {
+                 registrations: 'users/registrations'
+             }
   root to: 'users#index'
-  resources :users
-  resources :pomos
+  resources :users, except: %i[create update destroy] do
+    resources :pomos
+  end
 end

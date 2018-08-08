@@ -17,7 +17,7 @@ RSpec.describe PomosController, type: :request do
       it do
         sign_in user
         pomo.save
-        get '/pomos'
+        get "/users/#{user.id}/pomos"
         expect(response.status).to eq 200
       end
     end
@@ -38,7 +38,7 @@ RSpec.describe PomosController, type: :request do
       it 'returns success response' do
         sign_in user
         pomo.save
-        get "/pomos/#{pomo.id}"
+        get "/users/#{user.id}/pomos/#{pomo.id}"
         expect(response.status).to eq 200
       end
     end
@@ -57,7 +57,7 @@ RSpec.describe PomosController, type: :request do
       it 'returns 403 forbidden' do
         sign_in user
         pomo.save
-        get "/pomos/#{pomo.id}"
+        get "/users/#{user.id}/pomos/#{pomo.id}"
         expect(response.status).to eq 403
       end
     end
@@ -65,16 +65,17 @@ RSpec.describe PomosController, type: :request do
 
   describe 'GET #new' do
     context 'signed in by any user' do
+      let(:user) { build(:user) }
       it 'returns a success response' do
-        sign_in build(:user)
-        get '/pomos/new'
+        sign_in user
+        get "/users/#{user.id}/pomos/new"
         expect(response.status).to eq 200
       end
     end
 
     context 'not signed in' do
       it 'returns 302 response' do
-        get '/pomos/new'
+        get '/users/1/pomos/new'
         expect(response.status).to eq 302
       end
     end
@@ -85,7 +86,7 @@ RSpec.describe PomosController, type: :request do
       it 'return 200' do
         sign_in user
         pomo.save
-        get "/pomos/#{pomo.id}/edit"
+        get "/users/#{user.id}/pomos/#{pomo.id}/edit"
         expect(response.status).to eq 200
       end
     end
@@ -103,7 +104,7 @@ RSpec.describe PomosController, type: :request do
       it 'returns a 403 forbidden' do
         sign_in user
         pomo.save
-        get "/pomos/#{pomo.id}/edit"
+        get "/users/#{user.id}/pomos/#{pomo.id}/edit"
         expect(response.status).to eq 403
       end
     end
@@ -115,9 +116,9 @@ RSpec.describe PomosController, type: :request do
       it 'creates a new Pomo' do
         sign_in user
         expect do
-          post '/pomos', params: { pomo: attributes_for(:pomo) }
+          post "/users/#{user.id}/pomos", params: { pomo: attributes_for(:pomo) }
         end.to change(Pomo, :count).by(1)
-        expect(response).to redirect_to(Pomo.last)
+        expect(response).to redirect_to(user_pomo_url(user, Pomo.last))
       end
     end
 
@@ -126,7 +127,7 @@ RSpec.describe PomosController, type: :request do
         pomo.user_id = 2
         sign_in user
         expect do
-          post '/pomos', params: { pomo: pomo.attributes }
+          post "/users/#{user.id}/pomos", params: { pomo: pomo.attributes }
         end.to change(Pomo, :count).by(0)
         expect(response.status).to eq 200
       end
@@ -139,9 +140,9 @@ RSpec.describe PomosController, type: :request do
       it 'updates the requested pomo' do
         sign_in user
         pomo.save
-        put "/pomos/#{pomo.id}", params: { pomo: { comment: 'new attributes' } }
+        put "/users/#{user.id}/pomos/#{pomo.id}", params: { pomo: { comment: 'new attributes' } }
         expect(Pomo.find_by_id(pomo.to_param).comment).to eq('new attributes')
-        expect(response).to redirect_to(pomo)
+        expect(response).to redirect_to(user_pomo_url(user, pomo))
       end
     end
 
@@ -149,7 +150,7 @@ RSpec.describe PomosController, type: :request do
       it 'returns a success response' do
         pomo.save
         sign_in user
-        put "/pomos/#{pomo.id}", params: { pomo: { passage_seconds: '-10' } }
+        put "/users/#{user.id}/pomos/#{pomo.id}", params: { pomo: { passage_seconds: '-10' } }
         expect(response).to have_http_status(200)
         expect(Pomo.find(pomo.id).passage_seconds).not_to eq(-10)
       end
@@ -162,9 +163,9 @@ RSpec.describe PomosController, type: :request do
         pomo.save
         expect do
           sign_in user
-          delete "/pomos/#{pomo.id}"
+          delete "/users/#{user.id}/pomos/#{pomo.id}"
         end.to change(Pomo, :count).by(-1)
-        expect(response).to redirect_to(pomos_url)
+        expect(response).to redirect_to(user_pomos_url(user))
       end
     end
     context 'owner' do
@@ -183,7 +184,7 @@ RSpec.describe PomosController, type: :request do
         pomo.save
         expect do
           sign_in user
-          delete "/pomos/#{pomo.id}"
+          delete "/users/#{user.id}/pomos/#{pomo.id}"
         end.to change(Pomo, :count).by(0)
         expect(response.status).to eq 403
       end

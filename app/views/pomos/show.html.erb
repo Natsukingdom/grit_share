@@ -20,5 +20,5 @@
   <%= @pomo.comment %>
 </p>
 
-<%= link_to 'Edit', edit_pomo_path(@pomo) %> |
-<%= link_to 'Back', pomos_path %>
+<%= link_to 'Edit', edit_user_pomo_path(current_user, @pomo) %> |
+<%= link_to 'Back', user_pomos_path(current_user) %>
