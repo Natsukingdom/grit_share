@@ -7,14 +7,14 @@ abort('The Rails environment is running in production mode!') if Rails.env.produ
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 require 'devise'
-require File.expand_path('spec/support/controller_macros.rb')
+require File.expand_path('spec/support/authentication_macros.rb')
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
 ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
-  config.include Devise::Test::ControllerHelpers, type: :controller
-  config.include ControllerMacros, type: :controller
+  config.include Devise::Test::IntegrationHelpers, type: :request
+  config.include AuthenticationMacros, type: :request
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 

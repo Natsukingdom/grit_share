@@ -4,12 +4,19 @@ class PomosController < ApplicationController
   # GET /pomos
   # GET /pomos.json
   def index
-    @pomos = Pomo.all
+    @pomos = current_user.admin? ? Pomo.all : Pomo.where(user_id: current_user.id)
+    @pomos ||= []
   end
 
   # GET /pomos/1
   # GET /pomos/1.json
-  def show; end
+  def show
+    return if current_user.admin?
+    if @pomo.user_id != current_user.id
+      @pomo = nil
+      head 403
+    end
+  end
 
   # GET /pomos/new
   def new
@@ -17,7 +24,13 @@ class PomosController < ApplicationController
   end
 
   # GET /pomos/1/edit
-  def edit; end
+  def edit
+    return if current_user.admin?
+    if current_user.id != @pomo.user_id
+      @pomo = nil
+      head 403
+    end
+  end
 
   # POST /pomos
   # POST /pomos.json
@@ -52,6 +65,10 @@ class PomosController < ApplicationController
   # DELETE /pomos/1
   # DELETE /pomos/1.json
   def destroy
+    if current_user.id != @pomo.user_id
+      head 403
+      return
+    end
     @pomo.destroy
     respond_to do |format|
       format.html { redirect_to pomos_url, notice: 'Pomo was successfully destroyed.' }

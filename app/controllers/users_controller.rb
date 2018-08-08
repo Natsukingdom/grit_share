@@ -1,24 +1,42 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  skip_before_action :authenticate_user!, only: [:new]
 
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    if current_user.admin?
+      @users = User.all
+    else
+      redirect_to User.find current_user.id
+    end
   end
 
   # GET /users/1
   # GET /users/1.json
   def show
+    return if current_user.admin?
+    if current_user.id != @user.id
+      head 403
+    end
   end
 
   # GET /users/new
   def new
+    if current_user&.general?
+      head 403
+      return
+    end
     @user = User.new
   end
 
   # GET /users/1/edit
   def edit
+    return if current_user.admin?
+    if current_user.id != @user.id
+      head 403
+      return
+    end
   end
 
   # POST /users
