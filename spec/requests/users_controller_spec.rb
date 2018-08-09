@@ -178,12 +178,13 @@ RSpec.describe UsersController, type: :request do
     end
   end
 
-  describe 'PATCH #update' do
+  describe 'PUT #update' do
     context 'by admin' do
       let(:user) { build(:user, :admin) }
       context 'with invalid params' do
         it 'does not update user' do
           sign_in user
+          put '/users', params: {}
         end
       end
 
