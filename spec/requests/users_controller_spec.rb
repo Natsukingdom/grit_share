@@ -5,7 +5,10 @@ RSpec.describe UsersController, type: :request do
 
   before(:each) do
     create(:user, :admin)
+    # id を指定して保存した場合、自動でシーケンスが進まないのでこちらの処理を追加している。
+    ActiveRecord::Base.connection.execute("SELECT setval('users_id_seq', coalesce((SELECT MAX(id)+1 FROM users), 1), false)")
     create(:user)
+    ActiveRecord::Base.connection.execute("SELECT setval('users_id_seq', coalesce((SELECT MAX(id)+1 FROM users), 1), false)")
     create(:pomo)
   end
 
