@@ -124,7 +124,7 @@ RSpec.describe PomosController, type: :request do
 
     context 'with invalid params' do
       it "returns a success response (i.e. to display the 'new' template)" do
-        pomo.user_id = 2
+        pomo.user_id = 3
         sign_in user
         expect do
           post "/users/#{user.id}/pomos", params: { pomo: pomo.attributes }

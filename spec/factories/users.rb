@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :user do
-    id '1'
+    id '2'
     nickname 'JohnTitor'
     email 'hogehoge@example.com'
     password 'hogepiyoFuga@1984'
@@ -9,7 +9,7 @@ FactoryBot.define do
   end
 
   trait :admin do
-    id '88'
+    id '1'
     nickname 'Admin'
     email 'admin@example.com'
     password 'admin@Admin'
