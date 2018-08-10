@@ -7,7 +7,7 @@ RSpec.describe UsersController, type: :routing do
     end
 
     it 'routes to #new' do
-      expect(get: '/users/new').to route_to('users#new')
+      expect(get: '/users/sign_up').to route_to('users/registrations#new')
     end
 
     it 'routes to #show' do
@@ -15,7 +15,7 @@ RSpec.describe UsersController, type: :routing do
     end
 
     it 'routes to #edit' do
-      expect(get: '/users/1/edit').to route_to('users#edit', id: '1')
+      expect(get: '/users/edit').to route_to('users/registrations#edit')
     end
 
     it 'routes to #create' do

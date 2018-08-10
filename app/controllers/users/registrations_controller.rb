@@ -13,6 +13,15 @@ class Users::RegistrationsController < ::Devise::RegistrationsController
 #    super(resource_name, resource)
 #  end
 
+  def new
+    super do
+      if current_user&.general?
+        head 403
+        return
+      end
+    end
+  end
+
   def create
     if current_user&.general?
       head 403

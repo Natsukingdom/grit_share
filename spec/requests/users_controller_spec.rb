@@ -65,12 +65,12 @@ RSpec.describe UsersController, type: :request do
     end
   end
 
-  describe 'GET #new' do
+  describe 'GET user/registstrations#new' do
     context 'admin' do
       let(:user) { build(:user, :admin) }
       it 'returns a success response' do
         sign_in user
-        get '/users/new', params: { user: build(:user, :another).to_param }
+        get '/users/sign_up', params: { user: build(:user, :another).to_param }
         expect(response.status).to eq 200
       end
     end
@@ -79,14 +79,14 @@ RSpec.describe UsersController, type: :request do
       let(:user) { build(:user) }
       it 'returns 403' do
         sign_in user
-        get '/users/new', params: { user: build(:user, :another).to_param }
+        get '/users/sign_up', params: { user: build(:user, :another).to_param }
         expect(response.status).to eq 403
       end
     end
 
     context 'not signed_in' do
       it 'returns 200' do
-        get '/users/new', params: { user: build(:user, :another).to_param }
+        get '/users/sign_up', params: { user: build(:user, :another).to_param }
         expect(response.status).to eq 200
       end
     end
@@ -96,9 +96,10 @@ RSpec.describe UsersController, type: :request do
     shared_examples_for 'edit by auth user' do
       it 'returns 200' do
         sign_in user
-        get "/users/#{user.id}/edit"
+        get "/users/edit"
       end
     end
+
     context 'admin' do
       let(:user) { build(:user, :admin) }
       it_behaves_like 'edit by auth user'
@@ -109,23 +110,14 @@ RSpec.describe UsersController, type: :request do
       it_behaves_like 'edit by auth user'
     end
 
-    context 'general user not self' do
-      let(:user) { build(:user) }
-      let(:another_user) { create(:user, :another) }
-      it 'returns 403' do
-        sign_in user
-        get "/users/#{another_user.id}/edit"
-        expect(response.status).to eq 403
-      end
-    end
-
     context 'not signed_in' do
       let(:user) { build(:user) }
       it 'returns 302' do
-        get "/users/#{user.id}/edit"
+        get "/users/edit"
         expect(response.status).to eq 302
       end
     end
+
   end
 
   describe 'POST #create' do

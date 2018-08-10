@@ -4,7 +4,7 @@ Rails.application.routes.draw do
                  registrations: 'users/registrations'
              }
   root to: 'users#index'
-  resources :users, except: %i[edit create destroy] do
+  resources :users, except: %i[new edit update create destroy] do
     resources :pomos
   end
 end
