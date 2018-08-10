@@ -1,7 +1,9 @@
+inherit_from:
+  - .rubocop_todo.yml
+  - rubocop-todo.yml
+
 AllCops:
   TargetRubyVersion: 2.4.3
-
-inherit_from: rubocop-todo.yml
 
 Rails:
   Enabled: true

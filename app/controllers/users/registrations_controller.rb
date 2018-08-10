@@ -5,14 +5,6 @@ class Users::RegistrationsController < ::Devise::RegistrationsController
     user_url(user)
   end
 
-#  def sign_up(resource_name, resource)
-#    if current_user&.admin?
-#      redirect_to user_url(@user)
-#      return
-#    end
-#    super(resource_name, resource)
-#  end
-
   def new
     super do
       if current_user&.general?
