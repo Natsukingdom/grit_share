@@ -44,12 +44,11 @@ RSpec.describe UsersController, type: :request do
 
     context 'show anyuser by admin' do
       let(:admin) { build(:user, :admin) }
+      let(:user) { build(:user) }
       it 'returns 200' do
-        [build(:user), admin].each do |target_user|
-          sign_in admin
-          get "/users/#{target_user.id}"
-          expect(response.status).to eq 200
-        end
+        sign_in admin
+        get "/users/#{user.id}"
+        expect(response.status).to eq 200
       end
     end
 
@@ -172,42 +171,58 @@ RSpec.describe UsersController, type: :request do
 
   describe 'PUT #update' do
     context 'by admin' do
-      let(:user) { build(:user, :admin) }
+      let(:admin) { build(:user, :admin) }
       context 'with invalid params' do
         it 'does not update user' do
-          sign_in user
-          put '/users', params: {}
+          sign_in admin
+          put '/users', params: { user:  { 'email' => 'hogehogepi-yo' } }
+          expect(admin.reload.email).not_to eq 'hogehogepi-yo'
+          expect(response.status).to eq 200
         end
       end
 
       context 'with valid params' do
-        it 'updates user'
-        it 'redirects user page'
+        it 'updates user and redirects user page' do
+          sign_in admin
+          put '/users', params: { user: { 'birthday' => Date.parse('2018-08-09') }}
+          expect(admin.reload.birthday).to eq Date.parse('2018-08-09')
+          expect(response).to redirect_to(admin)
+        end
       end
     end
 
     context 'general user' do
+      let(:user) { build(:user) }
       context 'to self account' do
         context 'with valid params' do
-          it 'updates userself'
-          it 'redirects userself page'
+          it 'updates userself and redirects user page' do
+            sign_in user
+            put '/users', params: { user: { 'birthday' => Date.parse('1992-08-09') } }
+            expect(user.reload.birthday).to eq Date.parse('1992-08-09')
+            expect(response).to redirect_to(user)
+          end
         end
 
         context 'with invalid params' do
-          it 'does not update user'
+          it 'does not update user' do
+            sign_in user
+            put '/users', params: { user: { 'email' => 'hogehoge' } }
+            expect(user.reload.email).not_to eq 'hogehoge'
+            expect(response.status).to eq 200
+          end
         end
       end
-    end
-
-    context 'not signed in user' do
-      it 'does not updates any user'
-      it 'redirects sign_in page'
     end
   end
 
   describe 'DELETE #destroy' do
-    it 'destroys the requested user'
-
-    it 'redirects to the users list'
+    let(:user) { build(:user) }
+    it 'destroys the requested user' do
+      sign_in user
+      expect do
+        delete "/users", params: { user: { id:user.reload.id } }
+      end.to change(User, :count).by(-1)
+      expect(response).to redirect_to('/')
+    end
   end
 end

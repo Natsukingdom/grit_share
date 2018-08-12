@@ -14,10 +14,8 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    return if current_user.admin?
-    if current_user.id != @user.id
-      head 403
-    end
+    return if current_user&.admin?
+    head 403 if current_user.id != @user.id
   end
 
   private
