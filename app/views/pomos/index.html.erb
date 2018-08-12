@@ -20,9 +20,9 @@
         <td><%= pomo.stop_time %></td>
         <td><%= pomo.end_time %></td>
         <td><%= pomo.comment %></td>
-        <td><%= link_to 'Show', pomo %></td>
-        <td><%= link_to 'Edit', edit_pomo_path(pomo) %></td>
-        <td><%= link_to 'Destroy', pomo, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', user_pomo_url(current_user, pomo) %></td>
+        <td><%= link_to 'Edit', edit_user_pomo_path(current_user, pomo) %></td>
+        <td><%= link_to 'Destroy', user_pomo_url(current_user, pomo), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -30,4 +30,4 @@
 
 <br>
 
-<%= link_to 'New Pomo', new_pomo_path %>
+<%= link_to 'New Pomo', new_user_pomo_path(current_user) %>

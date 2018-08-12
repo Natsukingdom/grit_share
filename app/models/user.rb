@@ -11,6 +11,7 @@ class User < ApplicationRecord
                     length: { maximum: 191 },
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: true
-  validates :password, length: { minimum: 6 }, presence: true
+  validates :password, length: { minimum: 6 }, presence: true, on: :create
   has_many :pomos
+  enum authority: { general: 0, admin: 1 }
 end

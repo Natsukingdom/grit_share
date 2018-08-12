@@ -267,7 +267,7 @@ DEPENDENCIES
   rails (~> 5.1.6)
   rspec-rails (~> 3.7)
   rspec_junit_formatter
-  rubocop (~> 0.56.0)
+  rubocop
   sass-rails (>= 3.2)
   selenium-webdriver
   spring

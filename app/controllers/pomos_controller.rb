@@ -4,12 +4,19 @@ class PomosController < ApplicationController
   # GET /pomos
   # GET /pomos.json
   def index
-    @pomos = Pomo.all
+    @pomos = current_user.admin? ? Pomo.all : Pomo.where(user_id: current_user.id)
+    @pomos ||= []
   end
 
   # GET /pomos/1
   # GET /pomos/1.json
-  def show; end
+  def show
+    return if current_user.admin?
+    if @pomo.user_id != current_user.id
+      @pomo = nil
+      head 403
+    end
+  end
 
   # GET /pomos/new
   def new
@@ -17,7 +24,13 @@ class PomosController < ApplicationController
   end
 
   # GET /pomos/1/edit
-  def edit; end
+  def edit
+    return if current_user.admin?
+    if current_user.id != @pomo.user_id
+      @pomo = nil
+      head 403
+    end
+  end
 
   # POST /pomos
   # POST /pomos.json
@@ -26,7 +39,7 @@ class PomosController < ApplicationController
 
     respond_to do |format|
       if @pomo.save
-        format.html { redirect_to @pomo, notice: 'Pomo was successfully created.' }
+        format.html { redirect_to user_pomo_url(current_user, @pomo), notice: 'Pomo was successfully created.' }
         format.json { render :show, status: :created, location: @pomo }
       else
         format.html { render :new }
@@ -40,7 +53,7 @@ class PomosController < ApplicationController
   def update
     respond_to do |format|
       if @pomo.update(pomo_params)
-        format.html { redirect_to @pomo, notice: 'Pomo was successfully updated.' }
+        format.html { redirect_to user_pomo_url(current_user, @pomo), notice: 'Pomo was successfully updated.' }
         format.json { render :show, status: :ok, location: @pomo }
       else
         format.html { render :edit }
@@ -52,9 +65,13 @@ class PomosController < ApplicationController
   # DELETE /pomos/1
   # DELETE /pomos/1.json
   def destroy
+    if current_user.id != @pomo.user_id
+      head 403
+      return
+    end
     @pomo.destroy
     respond_to do |format|
-      format.html { redirect_to pomos_url, notice: 'Pomo was successfully destroyed.' }
+      format.html { redirect_to user_pomos_url(current_user), notice: 'Pomo was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

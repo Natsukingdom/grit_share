@@ -7,8 +7,8 @@ RSpec.describe Pomo, type: :model do
     end
 
     before(:each) do
-      @pomo = FactoryBot.build(:pomo)
-      @user = FactoryBot.create(:user)
+      @pomo = build(:pomo)
+      @user = create(:user)
     end
 
     context 'invalid' do
