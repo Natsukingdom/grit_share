@@ -17,7 +17,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li><%= link_to 'ホーム', root_path %></li>
         <% if user_signed_in? %>
-          <li><%= link_to 'ユーザーページ', user_path(@user) %></li>
+          <li><%= link_to 'ユーザーページ', user_path(@current_user) %></li>
         <% end %>
         <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
       </ul>

@@ -2,6 +2,7 @@
 class Users::RegistrationsController < ::Devise::RegistrationsController
   prepend_before_action :require_no_authentication, only: [:cancel]
   before_action :configure_account_update_params, only: [:update]
+  before_action :set_current_user
   def after_sign_in_path_for(user)
     user_url(user)
   end
@@ -12,6 +13,7 @@ class Users::RegistrationsController < ::Devise::RegistrationsController
         head 403
         return
       end
+      @current_user = current_user
     end
   end
 
@@ -29,6 +31,10 @@ class Users::RegistrationsController < ::Devise::RegistrationsController
   end
 
   private
+
+  def set_current_user
+    @current_user = current_user
+  end
 
   # ユーザ情報を更新する際にストロングパラメータでnicknameとbirthdayを許可するためにこのメソッドを作成した。
   def configure_account_update_params
