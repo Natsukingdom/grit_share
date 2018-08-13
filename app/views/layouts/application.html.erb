@@ -9,21 +9,10 @@
     </head>
 
     <body>
-        <% if user_signed_in? %>
-            <p>
-            <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
-            </p>
-        <% end %>
-        <% if notice %>
-            <p class="notice">
-            <%= notice %>
-            </p>
-        <% elsif alert %>
-            <p class="alert">
-            <%= alert %>
-            </p>
-        <% end %>
-        <%= yield %>
+    <%= render 'layouts/header' %>
+    <div class="container">
+      <%= yield %>
+    </div>
+    <%= render 'layouts/footer' %>
     </body>
-
 </html>

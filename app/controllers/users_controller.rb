@@ -6,6 +6,7 @@ class UsersController < ApplicationController
   def index
     if current_user.admin?
       @users = User.all
+      @user = current_user
     else
       redirect_to User.find current_user.id
     end
