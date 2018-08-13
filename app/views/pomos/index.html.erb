@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Pomos</h1>
+<h1>今までの Pomo</h1>
 
 <table>
   <thead>
@@ -20,9 +20,9 @@
         <td><%= pomo.stop_time %></td>
         <td><%= pomo.end_time %></td>
         <td><%= pomo.comment %></td>
-        <td><%= link_to 'Show', user_pomo_url(current_user, pomo) %></td>
-        <td><%= link_to 'Edit', edit_user_pomo_path(current_user, pomo) %></td>
-        <td><%= link_to 'Destroy', user_pomo_url(current_user, pomo), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', user_pomo_url(@user, pomo) %></td>
+        <td><%= link_to 'Edit', edit_user_pomo_path(@user, pomo) %></td>
+        <td><%= link_to 'Destroy', user_pomo_url(@user, pomo), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -30,4 +30,5 @@
 
 <br>
 
-<%= link_to 'New Pomo', new_user_pomo_path(current_user) %>
+<%= link_to 'Pomoる！', new_user_pomo_path(@user) %>
+<%= link_to 'ユーザ詳細画面へ', user_path(@user) %>

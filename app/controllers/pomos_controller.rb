@@ -1,29 +1,25 @@
 class PomosController < ApplicationController
   before_action :set_pomo, only: %i[show edit update destroy]
+  before_action :set_user
 
-  # GET /pomos
-  # GET /pomos.json
   def index
-    @pomos = current_user.admin? ? Pomo.all : Pomo.where(user_id: current_user.id)
+    @user = User.find(request.url.split('/')[-2])
+    @pomos = Pomo.where(user_id: @user.id)
     @pomos ||= []
   end
 
-  # GET /pomos/1
-  # GET /pomos/1.json
   def show
-    return if current_user.admin?
-    if @pomo.user_id != current_user.id
+    return if @user.admin?
+    if @pomo.user_id != @user.id
       @pomo = nil
       head 403
     end
   end
 
-  # GET /pomos/new
   def new
     @pomo = Pomo.new
   end
 
-  # GET /pomos/1/edit
   def edit
     return if current_user.admin?
     if current_user.id != @pomo.user_id
@@ -32,8 +28,6 @@ class PomosController < ApplicationController
     end
   end
 
-  # POST /pomos
-  # POST /pomos.json
   def create
     @pomo = Pomo.new(pomo_params)
 
@@ -48,8 +42,6 @@ class PomosController < ApplicationController
     end
   end
 
-  # PATCH/PUT /pomos/1
-  # PATCH/PUT /pomos/1.json
   def update
     respond_to do |format|
       if @pomo.update(pomo_params)
@@ -62,8 +54,6 @@ class PomosController < ApplicationController
     end
   end
 
-  # DELETE /pomos/1
-  # DELETE /pomos/1.json
   def destroy
     if current_user.id != @pomo.user_id
       head 403
@@ -78,13 +68,15 @@ class PomosController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_pomo
     @pomo = Pomo.find(params[:id])
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
   def pomo_params
     params.require(:pomo).permit(:user_id, :start_time, :stop_time, :end_time, :comment, :passage_seconds)
+  end
+
+  def set_user
+    @user = current_user
   end
 end

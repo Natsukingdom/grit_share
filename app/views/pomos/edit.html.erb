@@ -2,5 +2,5 @@
 
 <%= render 'form', pomo: @pomo %>
 
-<%= link_to 'Show', user_pomo_path(current_user, @pomo) %> |
-<%= link_to 'Back', user_pomos_path(current_user) %>
+<%= link_to 'Show', user_pomo_path(@user, @pomo) %> |
+<%= link_to 'Back', user_pomos_path(@user) %>
