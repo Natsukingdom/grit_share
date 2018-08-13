@@ -1,27 +1,29 @@
-<p id="notice"><%= notice %></p>
+<div class="jumbotron">
+  <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>ニックネーム</strong>
-  <%= @user.nickname %>
-</p>
+  <p>
+    <strong>ニックネーム</strong>
+    <%= @user.nickname %>
+  </p>
 
-<p>
-  <strong>メールアドレス</strong>
-  <%= @user.email %>
-</p>
+  <p>
+    <strong>メールアドレス</strong>
+    <%= @user.email %>
+  </p>
 
-<p>
-  <strong>誕生日</strong>
-  <%= @user.birthday %>
-</p>
+  <p>
+    <strong>誕生日</strong>
+    <%= @user.birthday %>
+  </p>
 
 
-<%= link_to '今までのPomo', user_pomos_path(@user) %> |
-<% if current_user == @user %>
-  <%= link_to 'いますぐpomoする!', new_user_pomo_path(@user) %> |
-  <%= link_to 'ユーザ情報を編集する', edit_user_registration_path(@user) %> |
-<% end %>
+  <%= link_to '今までのPomo', user_pomos_path(@user) %> |
+  <% if current_user == @user %>
+    <%= link_to 'いますぐpomoする!', new_user_pomo_path(@user) %> |
+    <%= link_to 'ユーザ情報を編集する', edit_user_registration_path(@user) %> |
+  <% end %>
 
-<% if current_user&.admin?  %>
-  <%= link_to 'ユーザ一覧画面をみる', users_path %>
-<% end %>
+  <% if current_user&.admin?  %>
+    <%= link_to 'ユーザ一覧画面をみる', users_path %>
+  <% end %>
+</div>
