@@ -1,18 +1,6 @@
 <header class="navbar navbar-fixed-top navbar-inverse">
   <div class="container">
     <%= link_to "grit_share", '#', id: "logo" %>
-    <% if user_signed_in? %>
-      現在、<%= @user.nickname %>としてログインしています。
-    <% end %>
-    <% if notice %>
-      <p class="notice">
-        <%= notice %>
-      </p>
-    <% elsif alert %>
-      <p class="alert">
-        <%= alert %>
-      </p>
-    <% end %>
     <nav>
       <ul class="nav navbar-nav navbar-right">
         <li><%= link_to 'ホーム', root_path %></li>
