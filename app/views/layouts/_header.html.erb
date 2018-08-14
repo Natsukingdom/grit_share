@@ -1,15 +1,14 @@
-<% if user_signed_in? %>
-  現在、<%= @user.nickname %>としてログインしています。
-  <p>
-    <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
-  </p>
-<% end %>
-<% if notice %>
-  <p class="notice">
-    <%= notice %>
-  </p>
-<% elsif alert %>
-  <p class="alert">
-    <%= alert %>
-  </p>
-<% end %>
+<header class="navbar navbar-fixed-top navbar-inverse">
+  <div class="container">
+    <%= link_to "grit_share", '#', id: "logo" %>
+    <nav>
+      <ul class="nav navbar-nav navbar-right">
+        <li><%= link_to 'ホーム', root_path %></li>
+        <% if user_signed_in? %>
+          <li><%= link_to 'ユーザーページ', user_path(@current_user) %></li>
+        <% end %>
+        <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
+      </ul>
+    </nav>
+  </div>
+</header>

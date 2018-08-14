@@ -1,9 +1,7 @@
-<p id="notice"><%= notice %></p>
-
 <h1>今までの Pomo</h1>
 
-<table>
-  <thead>
+<table class="table table-responsive">
+  <thead class="thead-light">
     <tr>
       <th>Start time</th>
       <th>Stop time</th>
@@ -30,5 +28,5 @@
 
 <br>
 
-<%= link_to 'Pomoる！', new_user_pomo_path(@user) %>
-<%= link_to 'ユーザ詳細画面へ', user_path(@user) %>
+<%= link_to 'Pomoる！', new_user_pomo_path(@user), class: 'btn btn-info text-white' %>
+<%= link_to 'ユーザ詳細画面へ', user_path(@user), class: 'btn btn-success text-white' %>

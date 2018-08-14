@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <strong>ニックネーム</strong>
   <%= @user.nickname %>
@@ -16,12 +14,12 @@
 </p>
 
 
-<%= link_to '今までのPomo', user_pomos_path(@user) %> |
+<%= link_to '今までのPomo', user_pomos_path(@user), class: 'btn btn-info' %>
 <% if current_user == @user %>
-  <%= link_to 'いますぐpomoする!', new_user_pomo_path(@user) %> |
-  <%= link_to 'ユーザ情報を編集する', edit_user_registration_path(@user) %> |
+  <%= link_to 'いますぐpomoする!', new_user_pomo_path(@user), class: 'btn btn-success' %>
+  <%= link_to 'ユーザ情報を編集する', edit_user_registration_path(@user), class: 'btn btn-info' %>
 <% end %>
 
 <% if current_user&.admin?  %>
-  <%= link_to 'ユーザ一覧画面をみる', users_path %>
+  <%= link_to 'ユーザ一覧画面をみる', users_path, class: 'btn btn-link' %>
 <% end %>
