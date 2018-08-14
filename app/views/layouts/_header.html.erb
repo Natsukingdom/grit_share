@@ -2,7 +2,7 @@
   <div class="container">
     <%= link_to "grit_share", '#', id: "logo" %>
     <% if user_signed_in? %>
-      <p>現在、<%= @user.nickname %>としてログインしています。</p>
+      現在、<%= @user.nickname %>としてログインしています。
     <% end %>
     <% if notice %>
       <p class="notice">
