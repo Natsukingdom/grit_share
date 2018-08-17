@@ -14,6 +14,7 @@
   <%= form.hidden_field :user_id, value: @user.id %>
 
   <div class="field">
+    <!-- 以下のフォームに関してコメント以外は概ね不可視化を行う。 -->
     <%= form.label :start_time %>
     <%= form.datetime_select :start_time, id: :pomo_start_time %>
   </div>
@@ -41,4 +42,33 @@
   <div class="actions">
     <%= form.submit %>
   </div>
+
 <% end %>
+  <form name="timer">
+    <input type="text" value="">分
+    <input type="text" value="">秒<br>
+    <input type="button" value="スタート" onclick="cntStart()">
+    <input type="button" value="ストップ" onclick="cntStop()">
+  </form>
+
+<br/>
+<br/>
+<br/>
+<br/>
+
+debug
+<br/>
+残り分数   <span id="minutes"></span>
+<br/>
+残り秒数   <span id="seconds"></span>
+<br/>
+経過秒数   <span id="passage"></span>
+<br/>
+
+<input type="button" value="startPomoTimer" onclick="startPomoTimer();" />
+<input type="button" value="stopPomoTimer" />
+<br/>
+<br/>
+<br/>
+<br/>
+
