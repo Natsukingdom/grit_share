@@ -44,12 +44,6 @@
   </div>
 
 <% end %>
-  <form name="timer">
-    <input type="text" value="">分
-    <input type="text" value="">秒<br>
-    <input type="button" value="スタート" onclick="cntStart()">
-    <input type="button" value="ストップ" onclick="cntStop()">
-  </form>
 
 <br/>
 <br/>
@@ -65,8 +59,8 @@ debug
 経過秒数   <span id="passage"></span>
 <br/>
 
-<input type="button" value="startPomoTimer" onclick="startPomoTimer();" />
-<input type="button" value="stopPomoTimer" />
+<input type="button" id="btn" class="start-timer" value="Start"/>
+
 <br/>
 <br/>
 <br/>
