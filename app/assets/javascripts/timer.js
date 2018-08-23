@@ -10,30 +10,43 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function toggleBtnFunction() {
     var button = document.getElementById('btn');
-    if(button.value == 'Start' || button.value == 'ReStart') {
+    if(button.value == 'Start') {
         startTimer();
         button.value = 'Stop';
-        button.className = 'stop-timer';
     } else if(button.value == 'Stop') {
         stopTimer();
         button.value = 'ReStart';
-        button.className = 'start-timer';
+    } else if(button.value == 'Restart') {
+        restartTimer();
+        button.value = 'Stop';
     }
 }
 
 
 function startTimer() {
-    timer = setInterval(function() {
-        counter--;
-        setSeconds(counter);
-    }, 1000)
+    timer = setInterval(countTimer, 1000)
+    // now を id=start-timeのvalueに設定する。
 }
 
 function stopTimer() {
     clearInterval(timer);
+    //
 }
 
 function setSeconds(restSeconds) {
-    var seconds = document.getElementById('seconds')
+    var seconds = document.getElementById('rest-time')
     seconds.textContent = restSeconds;
+}
+
+function restartTimer() {
+
+}
+
+function countTimer() {
+    counter--;
+    setSeconds(60 * 25 - counter);
+}
+
+function submitTimer() {
+
 }

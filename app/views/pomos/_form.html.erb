@@ -16,17 +16,17 @@
   <div class="field">
     <!-- 以下のフォームに関してコメント以外は概ね不可視化を行う。 -->
     <%= form.label :start_time %>
-    <%= form.datetime_select :start_time, id: :pomo_start_time %>
+    <%= form.datetime_select :start_time, id: :start_time %>
   </div>
 
   <div class="field">
     <%= form.label :stop_time %>
-    <%= form.datetime_select :stop_time, id: :pomo_stop_time %>
+    <%= form.datetime_select :stop_time, id: :stop_time %>
   </div>
 
   <div class="field">
     <%= form.label :end_time %>
-    <%= form.datetime_select :end_time, id: :pomo_end_time %>
+    <%= form.datetime_select :end_time, id: :end_time %>
   </div>
 
   <div class="field">
@@ -36,7 +36,12 @@
 
   <div class="field">
     <%= form.label :passage_seconds %>
-    <%= form.number_field :passage_seconds, id: :pomo_passage_seconds %>
+    <%= form.number_field :passage_seconds, id: :passage_seconds %>
+  </div>
+
+  <div>
+    <label>Rest seconds</label>
+    <span id="rest-time"></span>
   </div>
 
   <div class="actions">
