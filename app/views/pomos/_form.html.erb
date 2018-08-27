@@ -41,11 +41,11 @@
   </div>
 
   <div>
-    <input type="button" id="btn" class="start-timer" value="Start"/>
+    <input type="button" id="start-stop-btn" class="start-timer" value="Start"/>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit id: 'submit-btn', disabled: 'disabled' %>
   </div>
 
 <% end %>

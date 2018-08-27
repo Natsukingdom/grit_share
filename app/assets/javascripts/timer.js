@@ -1,15 +1,15 @@
 var timer;
 var counter = 0;
 var startTime;
-const POMO_SECONDS = 5;
+const POMO_SECONDS = 1500;
 document.addEventListener('DOMContentLoaded', function() {
         setSeconds(counter);
         setRestSeconds(counter);
-//        var button = document.getElementById('btn');
-//        if(!button) {
-//            return;
-//        }
-        document.getElementById('btn').addEventListener('click', function(e) {
+        var button = document.getElementById('start-stop-btn');
+        if(!button) {
+            return;
+        }
+        button.addEventListener('click', function(e) {
             toggleBtnFunction();
             window.addEventListener('beforeunload', beforeUnloadHandler);
         });
@@ -26,16 +26,20 @@ var beforeUnloadHandler = function(e) {
 }
 
 function toggleBtnFunction() {
-    var button = document.getElementById('btn');
-    if(button.value == 'Start') {
+    var control_btn = document.getElementById('start-stop-btn');
+    var submit_btn = document.getElementById('submit-btn');
+    if(control_btn.value == 'Start') {
         startTimer();
-        button.value = 'Stop';
-    } else if(button.value == 'Stop') {
+        control_btn.value = 'Stop';
+        submit_btn.setAttribute('disabled', 'disabled');
+    } else if(control_btn.value == 'Stop') {
         stopTimer();
-        button.value = 'ReStart';
-    } else if(button.value == 'ReStart') {
+        control_btn.value = 'ReStart';
+        submit_btn.removeAttribute('disabled');
+    } else if(control_btn.value == 'ReStart') {
         restartTimer();
-        button.value = 'Stop';
+        control_btn.value = 'Stop';
+        submit_btn.setAttribute('disabled', 'disabled');
     }
 }
 
@@ -70,7 +74,13 @@ function setRestSeconds(passageSeconds) {
     if(!restInput) {
         return;
     }
-    restInput.textContent = (POMO_SECONDS - passageSeconds) || 0;
+    restInput.textContent = restTime(POMO_SECONDS - passageSeconds) || 0;
+}
+
+function restTime(restSeconds) {
+    let minutes = restSeconds / 60 | 0;
+    let seconds = restSeconds % 60;
+    return minutes + '分' + seconds + '秒';
 }
 
 function restartTimer() {
@@ -107,8 +117,4 @@ function setPassageSeconds() {
         return;
     }
     passageInput.value = counter;
-}
-
-function confirmLeave() {
-    window.confirm('このウェブページを離脱しますか？')
 }
