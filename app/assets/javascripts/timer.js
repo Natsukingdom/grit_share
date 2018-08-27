@@ -16,8 +16,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 window.removeEventListener('beforeunload', beforeUnloadHandler);
             });
         });
-
-
     }
 );
 
