@@ -1,7 +1,7 @@
 var timer;
 var counter = 0;
 var startTime;
-const POMO_SECONDS = 5;
+const POMO_SECONDS = 1500;
 
 document.addEventListener('DOMContentLoaded', function() {
         setSeconds(counter);
