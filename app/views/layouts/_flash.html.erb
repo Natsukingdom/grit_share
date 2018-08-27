@@ -1,12 +1,5 @@
-<% if user_signed_in? %>
-  <p>現在、<%= @user.nickname %>としてログインしています。</p>
-<% end %>
 <% if notice %>
   <p class="notice alert-success">
     <%= notice %>
-  </p>
-<% elsif alert %>
-  <p class="alert alert-danger">
-    <%= alert %>
   </p>
 <% end %>

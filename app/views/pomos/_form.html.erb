@@ -4,48 +4,37 @@
       <h2><%= pluralize(pomo.errors.count, "error") %> prohibited this pomo from being saved:</h2>
 
       <ul>
-      <% pomo.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
+        <% pomo.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
 
   <%= form.hidden_field :user_id, value: @user.id %>
+  <!-- 以下のフォームに関してコメント以外は概ね不可視化を行う。 -->
+  <%= form.hidden_field :start_time, id: :start_time %>
+  <%= form.hidden_field :stop_time, id: :stop_time %>
+  <%= form.hidden_field :end_time, id: :end_time %>
+  <%= form.hidden_field :passage_seconds, id: :passage_seconds %>
 
-  <div class="field">
-    <!-- 以下のフォームに関してコメント以外は概ね不可視化を行う。 -->
-    <%= form.hidden_field :start_time, id: :start_time %>
+  <div class="form-group">
+    <%= form.label :comment, 'コメント' %>
+    <%= form.text_field :comment, id: :pomo_comment, class: 'form-control', placeholder: '何を勉強したの？' %>
   </div>
 
-  <div class="field">
-    <%= form.hidden_field :stop_time, id: :stop_time %>
-  </div>
-
-  <div class="field">
-    <%= form.hidden_field :end_time, id: :end_time %>
-  </div>
-
-  <div class="field">
-    <%= form.label :comment %>
-    <%= form.text_field :comment, id: :pomo_comment %>
-  </div>
-
-  <div class="field">
-    <%= form.hidden_field :passage_seconds, id: :passage_seconds %>
-  </div>
-
-  <div>
+  <div class="form-group">
     <label>残り時間</label>
-    <span id="rest-time"></span>
+    <span id="rest-time" class="form-control read-only"></span>
   </div>
 
-  <div>
-    <input type="button" id="start-stop-btn" class="start-timer" value="Start"/>
-  </div>
-
-  <div class="actions">
-    <%= form.submit id: 'submit-btn', disabled: 'disabled' %>
+  <div class="input-group">
+    <span class="input-group-addon">
+      <input type="button" id="start-stop-btn" class="start-timer btn-info btn" value="始める"/>
+    </span>
+    <span class="actions input-group-addon">
+      <%= form.submit id: 'submit-btn', class: 'btn btn-success text-white', disabled: 'disabled', value: '記録する' %>
+    </span>
   </div>
 
 <% end %>

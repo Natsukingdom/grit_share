@@ -1,24 +1,39 @@
-<p id="notice"><%= notice %></p>
+<div class="panel panel-default">
+  <div class="panel-heading">開始した時間</div>
+  <div class="panel-body">
+    <%= @pomo.start_time.strftime('%Y年%m月%d日%H時%m分%S秒') %>
+  </div>
+</div>
 
-<p>
-  <strong>Start time:</strong>
-  <%= @pomo.start_time %>
-</p>
+<!-- 今後 stop_timeは消すかもしれない -->
+<% if @pomo.stop_time %>
+  <p>
+    <strong>Stop time:</strong>
+    <%= @pomo.stop_time.strftime('%Y年%m月%d日%H時%m分%S秒') %>
+  </p>
+<% end %>
 
-<p>
-  <strong>Stop time:</strong>
-  <%= @pomo.stop_time %>
-</p>
+<div class="panel panel-default">
+  <div class="panel-heading">終了した時間</div>
+  <div class="panel-body">
+    <%= @pomo.end_time.strftime('%Y年%m月%d日%H時%m分%S秒') %>
+  </div>
+</div>
 
-<p>
-  <strong>End time:</strong>
-  <%= @pomo.end_time %>
-</p>
+<div class="panel panel-default">
+  <div class="panel-heading">勉強した時間</div>
+  <div class="panel-body">
+    <%= "#{@pomo.passage_seconds / 60}分#{@pomo.passage_seconds % 60}秒" %>
+  </div>
+</div>
 
-<p>
-  <strong>Comment:</strong>
-  <%= @pomo.comment %>
-</p>
+<% if @pomo.comment %>
+  <div class="panel panel-default">
+    <div class="panel-heading">コメント</div>
+    <div class="panel-body">
+      <%= @pomo.comment %>
+    </div>
+  </div>
+<% end %>
 
-<%= link_to 'Edit', edit_user_pomo_path(@user, @pomo) %> |
-<%= link_to 'Back', user_pomos_path(@user) %>
+<%= link_to '戻る', user_pomos_path(@user) %>

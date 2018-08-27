@@ -1,7 +1,8 @@
 var timer;
 var counter = 0;
 var startTime;
-const POMO_SECONDS = 1500;
+const POMO_SECONDS = 5;
+
 document.addEventListener('DOMContentLoaded', function() {
         setSeconds(counter);
         setRestSeconds(counter);
@@ -24,19 +25,22 @@ var beforeUnloadHandler = function(event) {
 }
 
 function toggleBtnFunction() {
-    var control_btn = document.getElementById('start-stop-btn');
-    var submit_btn = document.getElementById('submit-btn');
-    if(control_btn.value == 'Start') {
+    let control_btn = getControlBtn();
+    let submit_btn = getSubmitBtn();
+    let startMsg = '始める';
+    let stopMsg = 'やめる';
+    let restartMsg = '再開する';
+    if(control_btn.value == startMsg) {
+        control_btn.value = stopMsg;
         startTimer();
-        control_btn.value = 'Stop';
         submit_btn.setAttribute('disabled', 'disabled');
-    } else if(control_btn.value == 'Stop') {
+    } else if(control_btn.value == stopMsg) {
         stopTimer();
-        control_btn.value = 'ReStart';
+        control_btn.value = restartMsg;
         submit_btn.removeAttribute('disabled');
-    } else if(control_btn.value == 'ReStart') {
+    } else if(control_btn.value == restartMsg) {
         restartTimer();
-        control_btn.value = 'Stop';
+        control_btn.value = stopMsg;
         submit_btn.setAttribute('disabled', 'disabled');
     }
 }
@@ -44,15 +48,27 @@ function toggleBtnFunction() {
 function startTimer() {
     timer = setInterval(countTimer, 1000);
     setStartTime();
-    // now を id=start-timeのvalueに設定する。
 }
 
 function finishTimer() {
     stopTimer();
     setEndTime();
     setPassageSeconds();
-    window.alert('おつかれさま！');
+    let control_btn = getControlBtn();
+    control_btn.value = 'おしまい';
+    control_btn.setAttribute('disabled', 'disabled');
+    let submit_btn = getSubmitBtn();
+    submit_btn.removeAttribute('disabled');
+    window.alert('おつかれさま！5分間休んでね');
     // 通知する処理を入れる．
+}
+
+function getControlBtn() {
+    return document.getElementById('start-stop-btn');
+}
+
+function getSubmitBtn() {
+    return document.getElementById('submit-btn');
 }
 
 function setStartTime() {
