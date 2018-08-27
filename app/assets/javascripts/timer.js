@@ -5,24 +5,24 @@ const POMO_SECONDS = 1500;
 document.addEventListener('DOMContentLoaded', function() {
         setSeconds(counter);
         setRestSeconds(counter);
-        var button = document.getElementById('start-stop-btn');
-        if(!button) {
+        let control_btn = document.getElementById('start-stop-btn');
+        if(!control_btn) {
             return;
         }
-        button.addEventListener('click', function(e) {
+        control_btn.addEventListener('click', function() {
             toggleBtnFunction();
             window.addEventListener('beforeunload', beforeUnloadHandler);
+            document.getElementById('pomo_form').addEventListener('submit', function() {
+                window.removeEventListener('beforeunload', beforeUnloadHandler);
+            });
         });
-        document.getElementById('pomo_form').addEventListener('submit', function(e) {
-            window.removeEventListener('beforeunload', beforeUnloadHandler);
-        });
+
+
     }
 );
 
-var beforeUnloadHandler = function(e) {
-    let msg = '入力したデータが消えてしまう可能性があります．'
-    e.returnValue = msg;
-    return msg;
+var beforeUnloadHandler = function(event) {
+    event.returnValue = '入力したデータが消えてしまう可能性があります．';
 }
 
 function toggleBtnFunction() {
