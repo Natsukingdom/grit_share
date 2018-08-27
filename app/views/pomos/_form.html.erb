@@ -1,4 +1,4 @@
-<%= form_with(model: pomo, url: [@user, pomo], local: true) do |form| %>
+<%= form_with(model: pomo, url: [@user, pomo], local: true, id: :pomo_form) do |form| %>
   <% if pomo.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(pomo.errors.count, "error") %> prohibited this pomo from being saved:</h2>
@@ -15,18 +15,15 @@
 
   <div class="field">
     <!-- 以下のフォームに関してコメント以外は概ね不可視化を行う。 -->
-    <%= form.label :start_time %>
-    <%= form.datetime_select :start_time, id: :start_time %>
+    <%= form.hidden_field :start_time, id: :start_time %>
   </div>
 
   <div class="field">
-    <%= form.label :stop_time %>
-    <%= form.datetime_select :stop_time, id: :stop_time %>
+    <%= form.hidden_field :stop_time, id: :stop_time %>
   </div>
 
   <div class="field">
-    <%= form.label :end_time %>
-    <%= form.datetime_select :end_time, id: :end_time %>
+    <%= form.hidden_field :end_time, id: :end_time %>
   </div>
 
   <div class="field">
@@ -35,8 +32,7 @@
   </div>
 
   <div class="field">
-    <%= form.label :passage_seconds %>
-    <%= form.number_field :passage_seconds, id: :passage_seconds %>
+    <%= form.hidden_field :passage_seconds, id: :passage_seconds %>
   </div>
 
   <div>
@@ -44,30 +40,13 @@
     <span id="rest-time"></span>
   </div>
 
+  <div>
+    <input type="button" id="btn" class="start-timer" value="Start"/>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>
 
 <% end %>
-
-<br/>
-<br/>
-<br/>
-<br/>
-
-debug
-<br/>
-残り分数   <span id="minutes"></span>
-<br/>
-残り秒数   <span id="seconds"></span>
-<br/>
-経過秒数   <span id="passage"></span>
-<br/>
-
-<input type="button" id="btn" class="start-timer" value="Start"/>
-
-<br/>
-<br/>
-<br/>
-<br/>
 
