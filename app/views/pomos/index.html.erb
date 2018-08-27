@@ -1,12 +1,10 @@
-<h1>今までの Pomo</h1>
+<h1>今までの勉強履歴</h1>
 
 <table class="table table-responsive">
   <thead class="thead-light">
     <tr>
-      <th>Start time</th>
-      <th>Stop time</th>
-      <th>End time</th>
-      <th>Comment</th>
+      <th>勉強した時間</th>
+      <th>コメント</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -14,19 +12,14 @@
   <tbody>
     <% @pomos.each do |pomo| %>
       <tr>
-        <td><%= pomo.start_time %></td>
-        <td><%= pomo.stop_time %></td>
-        <td><%= pomo.end_time %></td>
+        <td><%= "#{pomo.passage_seconds / 60}分#{pomo.passage_seconds % 60}秒" %></td>
         <td><%= pomo.comment %></td>
-        <td><%= link_to 'Show', user_pomo_url(@user, pomo) %></td>
-        <td><%= link_to 'Edit', edit_user_pomo_path(@user, pomo) %></td>
-        <td><%= link_to 'Destroy', user_pomo_url(@user, pomo), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to '詳細を確認する', user_pomo_url(@user, pomo) %></td>
+        <td><%= link_to '消去する', user_pomo_url(@user, pomo), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
-
 <%= link_to 'Pomoる！', new_user_pomo_path(@user), class: 'btn btn-info text-white' %>
-<%= link_to 'ユーザ詳細画面へ', user_path(@user), class: 'btn btn-success text-white' %>
+<%= link_to 'ユーザ詳細画面へ', user_path(@user), class: 'btn btn-info text-white' %>
